@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,13 +9,13 @@ import { Header } from './src/components/Header';
 import { SectionTitle } from './src/components/SectionTitle';
 import { BottomBar } from './src/components/BottomBar';
 import { Drawer } from './src/components/Drawer';
-import { colors } from './src/theme/theme';
 import { useState } from 'react';
 import { BookDetails } from './src/screens/BookDetails';
 import { useNavigation } from '@react-navigation/native';
 import { Book, RootStackParamList } from './src/types/navigation';
 import Toast from 'react-native-toast-message';
 import { myLibrary, trendingBooks, newBooks } from './src/data/books';
+import { styles } from './src/styles/app.styles';
 
 const DrawerNav = createDrawerNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -173,57 +173,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    flex: 1,
-  },
-  contentContainer: {
-    paddingBottom: 32,
-  },
-  carouselContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  bookCard: {
-    width: 120,
-    height: 180,
-    marginRight: 12,
-    borderRadius: 8,
-    overflow: 'hidden',
-    backgroundColor: colors.surface,
-  },
-  bookCover: {
-    width: '100%',
-    height: '100%',
-  },
-  gridContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 16,
-    gap: 16,
-    marginTop: 70,
-  },
-  gridBookCard: {
-    height: 250,
-    borderRadius: 8,
-    overflow: 'hidden',
-    backgroundColor: colors.surface,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  gridBookCover: {
-    width: '100%',
-    height: '100%',
-  },
-});
