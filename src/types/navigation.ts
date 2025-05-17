@@ -12,6 +12,7 @@ export type Book = {
 };
 
 export type RootStackParamList = {
+  Drawer: undefined;
   Home: undefined;
   BookDetails: { book: Book };
 };

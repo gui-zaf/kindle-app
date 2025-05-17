@@ -1,10 +1,10 @@
-export type Book = {
+export interface Book {
   id: string;
   title: string;
+  category: string;
+  description: string;
   author: string;
   cover: string;
-  category: string;
   rating: number;
   price: number;
-  description: string;
-}; 
+} 

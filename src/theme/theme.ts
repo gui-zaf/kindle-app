@@ -9,7 +9,7 @@ export const colors = {
 
   // Text colors
   text: '#272729',
-  subtext: '#979798',
+  textSecondary: '#979798',
 
   // Icon colors
   icon: {
