@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/theme';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 type BookDetailsScreenRouteProp = RouteProp<RootStackParamList, 'BookDetails'>;
 
@@ -15,6 +16,7 @@ type BookDetailsProps = {
 export const BookDetails = ({ route }: BookDetailsProps) => {
   const { book } = route.params;
   const navigation = useNavigation();
+  const [isCartPressed, setIsCartPressed] = useState(false);
 
   const formatTitle = (title: string) => {
     return title
@@ -76,8 +78,32 @@ export const BookDetails = ({ route }: BookDetailsProps) => {
                 <Text style={[styles.buttonText, styles.buyButtonText]}>Comprar Agora</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={[styles.button, styles.cartButton]}>
-                <Ionicons name="cart-outline" size={24} color={colors.primary} />
+              <TouchableOpacity 
+                style={[
+                  styles.button, 
+                  styles.cartButton,
+                  isCartPressed && styles.cartButtonPressed
+                ]}
+                onPress={() => {
+                  setIsCartPressed(true);
+                  Toast.show({
+                    type: 'success',
+                    text1: 'Produto adicionado ao carrinho',
+                    position: 'bottom',
+                    props: {
+                      style: {
+                        borderLeftColor: colors.primary,
+                      },
+                    },
+                  });
+                  setTimeout(() => setIsCartPressed(false), 200);
+                }}
+              >
+                <Ionicons 
+                  name="cart-outline" 
+                  size={24} 
+                  color={isCartPressed ? colors.background : colors.primary} 
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -229,6 +255,10 @@ const styles = StyleSheet.create({
     flex: 0,
     width: 56,
     height: 56,
+  },
+  cartButtonPressed: {
+    backgroundColor: colors.primary,
+    transform: [{ scale: 0.95 }],
   },
   buyButton: {
     backgroundColor: colors.primary,

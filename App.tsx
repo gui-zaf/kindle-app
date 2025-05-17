@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { BookDetails } from './src/screens/BookDetails';
 import { useNavigation } from '@react-navigation/native';
 import { Book, RootStackParamList } from './src/types/navigation';
+import Toast from 'react-native-toast-message';
 
 const DrawerNav = createDrawerNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -505,22 +506,19 @@ const HomeStack = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
+      <NavigationContainer>
         <DrawerNav.Navigator
           drawerContent={(props) => <Drawer {...props} />}
           screenOptions={{
             headerShown: false,
-            drawerPosition: 'right',
-            drawerStyle: {
-              width: '80%',
-            },
           }}
         >
-          <DrawerNav.Screen name="HomeStack" component={HomeStack} />
+          <DrawerNav.Screen name="Home" component={HomeStack} />
         </DrawerNav.Navigator>
-      </SafeAreaProvider>
-    </NavigationContainer>
+      </NavigationContainer>
+      <Toast />
+    </SafeAreaProvider>
   );
 }
 
