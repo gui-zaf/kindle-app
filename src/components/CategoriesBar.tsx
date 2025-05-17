@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Alert } from 'react-native';
 import { CategoryButton } from './CategoryButton';
 import { colors } from '../theme/theme';
 
@@ -17,6 +17,7 @@ export const CategoriesBar = () => {
   const [activeCategory, setActiveCategory] = useState('Explorar');
 
   const handleCategoryPress = (category: string) => {
+    Alert.alert('Aviso', 'Essa funcionalidade não está disponível');
     setActiveCategory(category);
   };
 
