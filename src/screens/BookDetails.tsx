@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/theme';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type BookDetailsScreenRouteProp = RouteProp<RootStackParamList, 'BookDetails'>;
 
@@ -24,57 +25,65 @@ export const BookDetails = ({ route }: BookDetailsProps) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <TouchableOpacity 
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
+          <Ionicons name="chevron-back" size={24} color={colors.primary} />
+          <Text style={styles.backText}>Voltar</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.content}>
-        <View style={styles.coverContainer}>
-          <Image
-            source={{ uri: book.cover }}
-            style={styles.cover}
-            resizeMode="contain"
-          />
-        </View>
-
-        <View style={styles.info}>
-          <Text style={styles.title}>{formatTitle(book.title)}</Text>
-          <Text style={styles.author}>{book.author}</Text>
-          
-          <View style={styles.ratingContainer}>
-            <Ionicons name="star" size={20} color={colors.primary} />
-            <Text style={styles.rating}>{book.rating.toFixed(1)}</Text>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.content}>
+          <View style={styles.coverContainer}>
+            <Image
+              source={{ uri: book.cover }}
+              style={styles.cover}
+              resizeMode="contain"
+            />
           </View>
 
-          <View style={styles.categoryContainer}>
-            <Text style={styles.categoryLabel}>Categoria:</Text>
-            <Text style={styles.category}>{book.category}</Text>
-          </View>
-
-          <View style={styles.priceContainer}>
-            <Text style={styles.priceLabel}>Preço:</Text>
-            <Text style={styles.price}>R$ {book.price.toFixed(2)}</Text>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.button, styles.cartButton]}>
-              <Ionicons name="cart-outline" size={24} color={colors.primary} />
-              <Text style={[styles.buttonText, styles.cartButtonText]}>Adicionar ao Carrinho</Text>
-            </TouchableOpacity>
+          <View style={styles.info}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{formatTitle(book.title)}</Text>
+              <View style={styles.ratingContainer}>
+                <Ionicons name="star" size={20} color={colors.primary} />
+                <Text style={styles.rating}>{book.rating.toFixed(1)}</Text>
+              </View>
+            </View>
+            <Text style={styles.author}>{book.author}</Text>
             
-            <TouchableOpacity style={[styles.button, styles.buyButton]}>
-              <Text style={[styles.buttonText, styles.buyButtonText]}>Comprar Agora</Text>
-            </TouchableOpacity>
+            <View style={styles.categoryContainer}>
+              <Text style={styles.categoryLabel}>Categoria:</Text>
+              <Text style={styles.category}>{book.category}</Text>
+            </View>
+
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceLabel}>Preço:</Text>
+              <Text style={styles.price}>R$ {book.price.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.descriptionContainer}>
+              <Text style={styles.descriptionTitle}>Sinopse</Text>
+              <Text style={styles.description}>{book.description}</Text>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={[styles.button, styles.buyButton]}>
+                <Text style={[styles.buttonText, styles.buyButtonText]}>Comprar Agora</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={[styles.button, styles.cartButton]}>
+                <Ionicons name="cart-outline" size={24} color={colors.primary} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -85,15 +94,20 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 16,
-    marginTop: 70,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.surface,
   },
   backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.surface,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: 4,
+  },
+  backText: {
+    fontSize: 16,
+    color: colors.primary,
+  },
+  scrollView: {
+    flex: 1,
   },
   content: {
     padding: 16,
@@ -123,10 +137,18 @@ const styles = StyleSheet.create({
   info: {
     gap: 12,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: colors.text,
+    flex: 1,
+    marginRight: 16,
   },
   author: {
     fontSize: 18,
@@ -135,11 +157,16 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 4,
+    backgroundColor: colors.surface,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
   rating: {
     fontSize: 16,
-    color: colors.text,
+    fontWeight: 'bold',
+    color: colors.primary,
   },
   categoryContainer: {
     flexDirection: 'row',
@@ -168,8 +195,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.primary,
   },
-  buttonContainer: {
+  descriptionContainer: {
     marginTop: 24,
+    gap: 8,
+  },
+  descriptionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
+  description: {
+    fontSize: 16,
+    color: colors.subtext,
+    lineHeight: 24,
+  },
+  buttonContainer: {
+    marginTop: 40,
+    flexDirection: 'row',
     gap: 12,
   },
   button: {
@@ -184,16 +226,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.primary,
+    flex: 0,
+    width: 56,
+    height: 56,
   },
   buyButton: {
     backgroundColor: colors.primary,
+    flex: 1,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  cartButtonText: {
-    color: colors.primary,
   },
   buyButtonText: {
     color: colors.background,

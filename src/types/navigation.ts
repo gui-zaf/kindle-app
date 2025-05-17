@@ -8,6 +8,7 @@ export type Book = {
   category: string;
   rating: number;
   price: number;
+  description: string;
 };
 
 export type RootStackParamList = {
