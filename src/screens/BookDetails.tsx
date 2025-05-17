@@ -55,6 +55,25 @@ export const BookDetails = ({ route }: BookDetailsProps) => {
                 <Ionicons name="star" size={20} color={colors.primary} />
                 <Text style={styles.rating}>{book.rating.toFixed(1)}</Text>
               </View>
+              <TouchableOpacity 
+                style={styles.sampleContainer}
+                onPress={() => {
+                  Toast.show({
+                    type: 'info',
+                    text1: 'Amostra grátis',
+                    text2: 'Abrindo amostra do livro...',
+                    position: 'bottom',
+                  });
+                  
+                  setTimeout(() => {
+                    Toast.hide();
+                    navigation.navigate('BookPreview', { book });
+                  }, 2000);
+                }}
+              >
+                <Ionicons name="eye-outline" size={20} color={colors.primary} />
+                <Text style={styles.sampleText}>Amostra</Text>
+              </TouchableOpacity>
             </View>
             <Text style={styles.author}>{book.author}</Text>
             
@@ -255,6 +274,21 @@ const styles = StyleSheet.create({
     flex: 0,
     width: 56,
     height: 56,
+  },
+  sampleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: colors.surface,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    marginLeft: 8,
+  },
+  sampleText: {
+    fontSize: 14,
+    color: colors.primary,
+    fontWeight: 'bold',
   },
   cartButtonPressed: {
     backgroundColor: colors.primary,

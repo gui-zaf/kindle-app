@@ -16,6 +16,7 @@ import { Book, RootStackParamList } from './src/types/navigation';
 import Toast from 'react-native-toast-message';
 import { myLibrary, trendingBooks, newBooks } from './src/data/books';
 import { styles } from './src/styles/app.styles';
+import { BookPreview } from './src/screens/BookPreview';
 
 const DrawerNav = createDrawerNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -147,6 +148,14 @@ const HomeStack = () => {
       <Stack.Screen 
         name="BookDetails" 
         component={BookDetails}
+        options={{
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+        }}
+      />
+      <Stack.Screen 
+        name="BookPreview" 
+        component={BookPreview}
         options={{
           gestureEnabled: true,
           gestureDirection: 'horizontal',
