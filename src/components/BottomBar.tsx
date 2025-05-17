@@ -15,22 +15,28 @@ type TabItem = {
 const tabs: TabItem[] = [
   { id: 'home', label: 'Início', icon: 'home-outline', activeIcon: 'home' },
   { id: 'library', label: 'Biblioteca', icon: 'library-outline', activeIcon: 'library' },
-  { id: 'explore', label: 'Explorar', icon: 'compass-outline', activeIcon: 'compass' },
-  { id: 'more', label: 'Mais', icon: 'menu-outline', activeIcon: 'menu' },
+  { id: 'store', label: 'Loja', icon: 'cart-outline', activeIcon: 'cart' },
+  { id: 'profile', label: 'Perfil', icon: 'person-outline', activeIcon: 'person' },
 ];
 
 type DrawerParamList = {
   Home: undefined;
 };
 
-export const BottomBar = () => {
+type BottomBarProps = {
+  onTabPress: (tabId: 'home' | 'library' | 'store' | 'profile') => void;
+};
+
+export const BottomBar = ({ onTabPress }: BottomBarProps) => {
   const [activeTab, setActiveTab] = useState('home');
   const navigation = useNavigation<DrawerNavigationProp<DrawerParamList>>();
 
   const handleTabPress = (tabId: string) => {
     setActiveTab(tabId);
-    if (tabId === 'more') {
+    if (tabId === 'profile') {
       navigation.openDrawer();
+    } else {
+      onTabPress(tabId as 'home' | 'library' | 'store' | 'profile');
     }
   };
 
