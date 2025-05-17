@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { colors } from '../theme/theme';
@@ -18,6 +18,10 @@ const drawerItems: DrawerItem[] = [
 ];
 
 export const Drawer = (props: any) => {
+  const handleItemPress = (label: string) => {
+    Alert.alert('Aviso', 'Essa funcionalidade ainda não está disponível');
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.container}>
@@ -32,7 +36,11 @@ export const Drawer = (props: any) => {
         </View>
         
         {drawerItems.map((item) => (
-          <TouchableOpacity key={item.id} style={styles.item}>
+          <TouchableOpacity 
+            key={item.id} 
+            style={styles.item}
+            onPress={() => handleItemPress(item.label)}
+          >
             <Ionicons name={item.icon} size={24} color={colors.text} />
             <Text style={styles.itemText}>{item.label}</Text>
           </TouchableOpacity>
