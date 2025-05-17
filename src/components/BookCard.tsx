@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import { View, StyleSheet, Image, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import { colors } from '../theme/theme';
 
 type BookCardProps = {
   imageUrl?: string | ImageSourcePropType;
+  onPress?: () => void;
 };
 
-export const BookCard = ({ imageUrl }: BookCardProps) => {
+export const BookCard = ({ imageUrl, onPress }: BookCardProps) => {
   console.log('BookCard imageUrl:', imageUrl);
   
   const imageSource = React.useMemo(() => {
@@ -18,7 +19,7 @@ export const BookCard = ({ imageUrl }: BookCardProps) => {
   }, [imageUrl]);
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       {imageSource ? (
         <Image
           source={imageSource}
@@ -28,7 +29,7 @@ export const BookCard = ({ imageUrl }: BookCardProps) => {
       ) : (
         <View style={styles.placeholder} />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
