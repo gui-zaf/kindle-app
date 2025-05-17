@@ -6,7 +6,6 @@ import { useNavigation, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import { myLibrary } from '../data/books';
 
 type BookDetailsScreenRouteProp = RouteProp<RootStackParamList, 'BookDetails'>;
 
@@ -17,7 +16,7 @@ type BookDetailsProps = {
 export const BookDetails = ({ route }: BookDetailsProps) => {
   const { book } = route.params;
   const navigation = useNavigation();
-  const isInLibrary = myLibrary.some(libBook => libBook.id === book.id);
+  const [isCartPressed, setIsCartPressed] = useState(false);
 
   const formatTitle = (title: string) => {
     return title
@@ -64,18 +63,49 @@ export const BookDetails = ({ route }: BookDetailsProps) => {
               <Text style={styles.category}>{book.category}</Text>
             </View>
 
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceLabel}>Preço:</Text>
+              <Text style={styles.price}>R$ {book.price.toFixed(2)}</Text>
+            </View>
+
             <View style={styles.descriptionContainer}>
               <Text style={styles.descriptionTitle}>Sinopse</Text>
               <Text style={styles.description}>{book.description}</Text>
             </View>
 
-            {isInLibrary && (
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.continueButton]}>
-                  <Text style={[styles.buttonText, styles.continueButtonText]}>Continuar leitura</Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={[styles.button, styles.buyButton]}>
+                <Text style={[styles.buttonText, styles.buyButtonText]}>Comprar Agora</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={[
+                  styles.button, 
+                  styles.cartButton,
+                  isCartPressed && styles.cartButtonPressed
+                ]}
+                onPress={() => {
+                  setIsCartPressed(true);
+                  Toast.show({
+                    type: 'success',
+                    text1: 'Produto adicionado ao carrinho',
+                    position: 'bottom',
+                    props: {
+                      style: {
+                        borderLeftColor: colors.primary,
+                      },
+                    },
+                  });
+                  setTimeout(() => setIsCartPressed(false), 200);
+                }}
+              >
+                <Ionicons 
+                  name="cart-outline" 
+                  size={24} 
+                  color={isCartPressed ? colors.background : colors.primary} 
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -177,6 +207,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
   },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  priceLabel: {
+    fontSize: 16,
+    color: colors.textSecondary,
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
   descriptionContainer: {
     marginTop: 24,
     gap: 8,
@@ -193,6 +237,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 40,
+    flexDirection: 'row',
+    gap: 12,
   },
   button: {
     flexDirection: 'row',
@@ -202,14 +248,27 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     gap: 8,
   },
-  continueButton: {
+  cartButton: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    flex: 0,
+    width: 56,
+    height: 56,
+  },
+  cartButtonPressed: {
     backgroundColor: colors.primary,
+    transform: [{ scale: 0.95 }],
+  },
+  buyButton: {
+    backgroundColor: colors.primary,
+    flex: 1,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
   },
-  continueButtonText: {
+  buyButtonText: {
     color: colors.background,
   },
 }); 
