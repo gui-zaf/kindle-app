@@ -164,6 +164,7 @@ export default function App() {
           drawerContent={(props) => <Drawer {...props} />}
           screenOptions={{
             headerShown: false,
+            drawerPosition: 'right',
           }}
         >
           <DrawerNav.Screen name="Home" component={HomeStack} />
