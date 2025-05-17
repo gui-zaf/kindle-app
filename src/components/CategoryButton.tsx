@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: colors.subtext,
+    borderColor: colors.textSecondary,
     backgroundColor: colors.background,
     marginRight: 8,
   },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryBackground,
   },
   text: {
-    color: colors.subtext,
+    color: colors.textSecondary,
     fontSize: 14,
   },
   activeText: {

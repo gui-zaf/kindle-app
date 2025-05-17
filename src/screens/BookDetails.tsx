@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   author: {
     fontSize: 18,
-    color: colors.subtext,
+    color: colors.textSecondary,
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   categoryLabel: {
     fontSize: 16,
-    color: colors.subtext,
+    color: colors.textSecondary,
   },
   category: {
     fontSize: 16,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   priceLabel: {
     fontSize: 16,
-    color: colors.subtext,
+    color: colors.textSecondary,
   },
   price: {
     fontSize: 20,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: colors.subtext,
+    color: colors.textSecondary,
     lineHeight: 24,
   },
   buttonContainer: {

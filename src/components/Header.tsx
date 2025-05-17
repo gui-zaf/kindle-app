@@ -12,15 +12,15 @@ export const Header = () => {
       <SafeAreaView edges={['top']} style={globalStyles.safeArea} />
       <View style={globalStyles.header}>
         <TouchableOpacity style={globalStyles.iconButton}>
-          <Ionicons name="notifications-outline" size={24} color={colors.subtext} />
+          <Ionicons name="notifications-outline" size={24} color={colors.textSecondary} />
         </TouchableOpacity>
         
         <View style={globalStyles.searchContainer}>
-          <Ionicons name="search" size={20} color={colors.subtext} />
+          <Ionicons name="search" size={20} color={colors.textSecondary} />
           <TextInput
             style={globalStyles.searchInput}
             placeholder="Pesquisar livro"
-            placeholderTextColor={colors.subtext}
+            placeholderTextColor={colors.textSecondary}
           />
         </View>
       </View>
