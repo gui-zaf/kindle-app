@@ -1383,7 +1383,7 @@
 
 "@react-navigation/native-stack@^7.3.13":
   version "7.3.13"
-  resolved "https://registry.npmjs.org/@react-navigation/native-stack/-/native-stack-7.3.13.tgz"
+  resolved "https://registry.yarnpkg.com/@react-navigation/native-stack/-/native-stack-7.3.13.tgz#b6962b71755f0ac8dd2f97a2c4229575a15a0cb1"
   integrity sha512-udH+HumX0PmaT6QQTqjU3ciiCwifBGtnw1+6B1bVEDw83q80WHotlMitaf8Enbuf7oWrxwB+Eow4tV5MJXgQtQ==
   dependencies:
     "@react-navigation/elements" "^2.4.2"
@@ -1391,7 +1391,7 @@
 
 "@react-navigation/native@^7.1.9":
   version "7.1.9"
-  resolved "https://registry.npmjs.org/@react-navigation/native/-/native-7.1.9.tgz"
+  resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-7.1.9.tgz#2ea69b58e40c4a8fa59a832f02208db948037d0a"
   integrity sha512-/A0oBwZIeD23o4jsnB0fEyKmKS+l4LAbJP/ioVvsGEubGp+sc5ouQNranOh7JwR0R1eX0MjcsLKprEwB+nztdw==
   dependencies:
     "@react-navigation/core" "^7.9.2"
@@ -1647,15 +1647,16 @@ anymatch@^3.0.3:
     "@react-navigation/native" "^7.1.9"
     "@react-navigation/native-stack" "^7.3.13"
     "@react-navigation/stack" "^7.3.2"
-    app "file:../../../Library/Caches/Yarn/v6/npm-app-1.0.0-012a2b31-8353-4015-b0dd-3b67dd790731-1747486565480/node_modules/app"
+    app "file:../../../Library/Caches/Yarn/v6/npm-app-1.0.0-635d7b9f-9170-4827-a3e7-5b3d1e5e83df-1747522883208/node_modules/app"
     expo "^53.0.9"
     expo-status-bar "~2.2.3"
-    react "19.0.0"
+    react "^19.1.0"
     react-native "^0.79.2"
     react-native-gesture-handler "^2.25.0"
     react-native-reanimated "^3.17.5"
     react-native-safe-area-context "^5.4.0"
     react-native-screens "^4.10.0"
+    react-native-toast-message "^2.3.0"
 
 arg@^5.0.2:
   version "5.0.2"
@@ -3859,15 +3860,20 @@ react-native@^0.79.2:
     ws "^6.2.3"
     yargs "^17.6.2"
 
+react-navigation@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-5.0.0.tgz#a7dd98a6148ba997834ebcf5a5073bdb3d4f4eb3"
+  integrity sha512-ACTzjc4L1ik7rJ092ZhIELBJ/pnoLgRIqWHSKcYcaBASxyjJCgBEDIV5s585HBj55tw25YwNdlj3+d4B4MYWDg==
+
 react-refresh@^0.14.0, react-refresh@^0.14.2:
   version "0.14.2"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.2.tgz"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
-react@19.0.0:
-  version "19.0.0"
-  resolved "https://registry.npmjs.org/react/-/react-19.0.0.tgz"
-  integrity sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==
+react@^19.1.0:
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.1.0.tgz#926864b6c48da7627f004795d6cce50e90793b75"
+  integrity sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==
 
 regenerate-unicode-properties@^10.2.0:
   version "10.2.0"
