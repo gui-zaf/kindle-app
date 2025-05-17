@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, ScrollView, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,20 +10,13 @@ import { BottomBar } from './src/components/BottomBar';
 import { Drawer } from './src/components/Drawer';
 import { colors } from './src/theme/theme';
 import { useState } from 'react';
+import { BookDetails } from './src/screens/BookDetails';
+import { useNavigation } from '@react-navigation/native';
+import { Book, RootStackParamList } from './src/types/navigation';
 
-const DrawerNav = createDrawerNavigator();
+const DrawerNav = createDrawerNavigator<RootStackParamList>();
 
-interface Book {
-  id: string;
-  title: string;
-  author: string;
-  cover: string;
-  category: string;
-  rating: number;
-  price: number;
-}
-
-const myLibrary = [
+const myLibrary: Book[] = [
   {
     id: '1',
     title: 'Seduzida pelo meu chuveiro senciente',
@@ -340,25 +333,27 @@ const newBooks = [
 
 interface BookCardProps {
   book: Book;
+  onPress?: () => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+const BookCard: React.FC<BookCardProps> = ({ book, onPress }) => {
   return (
-    <View style={styles.bookCard}>
+    <TouchableOpacity style={styles.bookCard} onPress={onPress}>
       <Image
         source={{ uri: book.cover }}
         style={styles.bookCover}
         resizeMode="cover"
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
 interface BookCarouselProps {
   books: Book[];
+  onBookPress: (book: Book) => void;
 }
 
-const BookCarousel: React.FC<BookCarouselProps> = ({ books }) => {
+const BookCarousel: React.FC<BookCarouselProps> = ({ books, onBookPress }) => {
   return (
     <ScrollView
       horizontal
@@ -366,26 +361,30 @@ const BookCarousel: React.FC<BookCarouselProps> = ({ books }) => {
       contentContainerStyle={styles.carouselContent}
     >
       {books.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <BookCard key={book.id} book={book} onPress={() => onBookPress(book)} />
       ))}
     </ScrollView>
   );
 };
 
-const BookGrid: React.FC<{ books: Book[] }> = ({ books }) => {
+const BookGrid: React.FC<{ books: Book[]; onBookPress: (book: Book) => void }> = ({ books, onBookPress }) => {
   const screenWidth = Dimensions.get('window').width;
   const bookWidth = (screenWidth - 48) / 2; // 48 = padding (16) * 2 + gap between books (16)
 
   return (
     <View style={styles.gridContainer}>
       {books.map((book) => (
-        <View key={book.id} style={[styles.gridBookCard, { width: bookWidth }]}>
+        <TouchableOpacity 
+          key={book.id} 
+          style={[styles.gridBookCard, { width: bookWidth }]} 
+          onPress={() => onBookPress(book)}
+        >
           <Image
             source={{ uri: book.cover }}
             style={styles.gridBookCover}
             resizeMode="cover"
           />
-        </View>
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -393,6 +392,11 @@ const BookGrid: React.FC<{ books: Book[] }> = ({ books }) => {
 
 const HomeScreen = () => {
   const [currentView, setCurrentView] = useState<'home' | 'library' | 'store' | 'profile'>('home');
+  const navigation = useNavigation();
+
+  const handleBookPress = (book: Book) => {
+    navigation.navigate('BookDetails', { book });
+  };
 
   const renderContent = () => {
     switch (currentView) {
@@ -406,7 +410,7 @@ const HomeScreen = () => {
             scrollEventThrottle={16}
             contentContainerStyle={styles.contentContainer}
           >
-            <BookGrid books={myLibrary} />
+            <BookGrid books={myLibrary} onBookPress={handleBookPress} />
           </ScrollView>
         );
       case 'home':
@@ -421,13 +425,13 @@ const HomeScreen = () => {
             contentContainerStyle={styles.contentContainer}
           >
             <SectionTitle title="Minha biblioteca" isFirst />
-            <BookCarousel books={myLibrary} />
+            <BookCarousel books={myLibrary} onBookPress={handleBookPress} />
             
             <SectionTitle title="Livros em alta" icon="trending-up-outline" />
-            <BookCarousel books={trendingBooks} />
+            <BookCarousel books={trendingBooks} onBookPress={handleBookPress} />
 
             <SectionTitle title="Novidades" icon="time-outline" />
-            <BookCarousel books={newBooks} />
+            <BookCarousel books={newBooks} onBookPress={handleBookPress} />
           </ScrollView>
         );
     }
@@ -458,6 +462,7 @@ export default function App() {
           }}
         >
           <DrawerNav.Screen name="Home" component={HomeScreen} />
+          <DrawerNav.Screen name="BookDetails" component={BookDetails} />
         </DrawerNav.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>
@@ -503,6 +508,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     backgroundColor: colors.surface,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   gridBookCover: {
     width: '100%',
