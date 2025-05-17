@@ -15,8 +15,8 @@ type TabItem = {
 const tabs: TabItem[] = [
   { id: 'home', label: 'Início', icon: 'home-outline', activeIcon: 'home' },
   { id: 'library', label: 'Biblioteca', icon: 'library-outline', activeIcon: 'library' },
-  { id: 'store', label: 'Loja', icon: 'cart-outline', activeIcon: 'cart' },
-  { id: 'profile', label: 'Perfil', icon: 'person-outline', activeIcon: 'person' },
+  { id: 'store', label: 'Explorar', icon: 'compass-outline', activeIcon: 'compass' },
+  { id: 'profile', label: 'Mais', icon: 'menu-outline', activeIcon: 'menu' },
 ];
 
 type DrawerParamList = {
