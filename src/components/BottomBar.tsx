@@ -35,6 +35,8 @@ export const BottomBar = ({ onTabPress }: BottomBarProps) => {
     setActiveTab(tabId);
     if (tabId === 'profile') {
       navigation.openDrawer();
+    } else if (tabId === 'store') {
+      alert('Essa funcionalidade não está disponível');
     } else {
       onTabPress(tabId as 'home' | 'library' | 'store' | 'profile');
     }
